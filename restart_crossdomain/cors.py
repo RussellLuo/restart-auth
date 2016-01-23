@@ -9,11 +9,11 @@ class CORSMiddleware(object):
     """
 
     #: Access control options
-    CORS_ALLOW_ORIGIN = '*'  # any domain
-    CORS_ALLOW_CREDENTIALS = False
-    CORS_ALLOW_METHODS = ('GET', 'POST', 'PUT', 'PATCH', 'DELETE')
-    CORS_ALLOW_HEADERS = ()  # any headers
-    CORS_MAX_AGE = 864000  # 10 days
+    cors_allow_origin = '*'  # any domain
+    cors_allow_credentials = False
+    cors_allow_methods = ('GET', 'POST', 'PUT', 'PATCH', 'DELETE')
+    cors_allow_headers = ()  # any headers
+    cors_max_age = 864000  # 10 days
 
     def make_preflight_headers(self, request_headers, allow_origin=None,
                                allow_credentials=None, allow_methods=None,
@@ -21,17 +21,17 @@ class CORSMiddleware(object):
         """Make reasonable CORS response headers for preflight requests.
         """
         if allow_origin is None:
-            allow_origin = self.CORS_ALLOW_ORIGIN
+            allow_origin = self.cors_allow_origin
         if allow_credentials is None:
-            allow_credentials = self.CORS_ALLOW_CREDENTIALS
+            allow_credentials = self.cors_allow_credentials
         if allow_methods is None:
-            allow_methods = self.CORS_ALLOW_METHODS
+            allow_methods = self.cors_allow_methods
         if allow_headers is None:
-            allow_headers = self.CORS_ALLOW_HEADERS
+            allow_headers = self.cors_allow_headers
             if not allow_headers and request_headers is not None:
                 allow_headers = request_headers.split(', ')
         if max_age is None:
-            max_age = self.CORS_MAX_AGE
+            max_age = self.cors_max_age
 
         headers = {
             'Access-Control-Allow-Origin': allow_origin,
@@ -53,9 +53,9 @@ class CORSMiddleware(object):
         """Make reasonable CORS response headers for actual requests.
         """
         if allow_origin is None:
-            allow_origin = self.CORS_ALLOW_ORIGIN
+            allow_origin = self.cors_allow_origin
         if allow_credentials is None:
-            allow_credentials = self.CORS_ALLOW_CREDENTIALS
+            allow_credentials = self.cors_allow_credentials
 
         headers = {
             'Access-Control-Allow-Origin': allow_origin,
