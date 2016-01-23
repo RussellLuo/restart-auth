@@ -1,2 +1,3 @@
-# restart-auth
-A RESTArt extension for Authentication.
+# RESTArt-CrossDomain
+
+A RESTArt extension for cross-domain access.
