@@ -20,18 +20,13 @@ class CORSMiddleware(object):
                                allow_headers=None, max_age=None):
         """Make reasonable CORS response headers for preflight requests.
         """
-        if allow_origin is None:
-            allow_origin = self.cors_allow_origin
-        if allow_credentials is None:
-            allow_credentials = self.cors_allow_credentials
-        if allow_methods is None:
-            allow_methods = self.cors_allow_methods
-        if allow_headers is None:
-            allow_headers = self.cors_allow_headers
-            if not allow_headers and request_headers is not None:
-                allow_headers = request_headers.split(', ')
-        if max_age is None:
-            max_age = self.cors_max_age
+        allow_origin = allow_origin or self.cors_allow_origin
+        allow_credentials = allow_credentials or self.cors_allow_credentials
+        allow_methods = allow_methods or self.cors_allow_methods
+        allow_headers = allow_headers or self.cors_allow_headers
+        if not allow_headers and request_headers is not None:
+            allow_headers = request_headers.split(', ')
+        max_age = max_age or self.cors_max_age
 
         headers = {
             'Access-Control-Allow-Origin': allow_origin,
@@ -53,18 +48,14 @@ class CORSMiddleware(object):
                             allow_credentials=None):
         """Make reasonable CORS response headers for actual requests.
         """
-        if allow_origin is None:
-            allow_origin = self.cors_allow_origin
+        allow_origin = allow_origin or self.cors_allow_origin
         # If the Access-Control-Allow-Origin header is specified as
         # a wildcard, only allow the origin of the current request
         if allow_origin == '*':
             allow_origin = request_origin
-        if allow_credentials is None:
-            allow_credentials = self.cors_allow_credentials
+        allow_credentials = allow_credentials or self.cors_allow_credentials
 
-        headers = {
-            'Access-Control-Allow-Origin': allow_origin,
-        }
+        headers = {'Access-Control-Allow-Origin': allow_origin}
         if allow_credentials:
             headers.update({'Access-Control-Allow-Credentials': 'true'})
         if allow_origin != '*':
