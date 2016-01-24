@@ -49,11 +49,16 @@ class CORSMiddleware(object):
 
         return headers
 
-    def make_actual_headers(self, allow_origin=None, allow_credentials=None):
+    def make_actual_headers(self, request_origin, allow_origin=None,
+                            allow_credentials=None):
         """Make reasonable CORS response headers for actual requests.
         """
         if allow_origin is None:
             allow_origin = self.cors_allow_origin
+        # If the Access-Control-Allow-Origin header is specified as
+        # a wildcard, only allow the origin of the current request
+        if allow_origin == '*':
+            allow_origin = request_origin
         if allow_credentials is None:
             allow_credentials = self.cors_allow_credentials
 
@@ -92,6 +97,7 @@ class CORSMiddleware(object):
         :param response: the response object.
         """
         if not self.is_preflight_request(request):
-            headers = self.make_actual_headers()
+            request_origin = request.headers['Origin']
+            headers = self.make_actual_headers(request_origin)
             response.headers.update(headers)
         return response
