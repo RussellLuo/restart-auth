@@ -57,10 +57,10 @@ Or create a new subclass with some customized configurations:
 
 ### 2. Use the middleware class
 
-Set the above middleware class as a global middleware:
+Set the above middleware class as a global middleware, in the [customized configuration][1] module:
 
 ```python
-    RENDERER_CLASSES = (
+    MIDDLEWARE_CLASSES = (
         'restart.ext.crossdomain.cors.CORSMiddleware',
         # Or
         # 'my_middlewares.CustomizedCORSMiddleware',
@@ -72,7 +72,6 @@ Or set it as a resource-level middleware:
 ```python
     from restart.api import RESTArt
     from restart.resource import Resource
-
     from restart.ext.crossdomain.cors import CORSMiddleware
     # Or
     # from my_middlewares import CustomizedCORSMiddleware as CORSMiddleware
@@ -86,5 +85,7 @@ Or set it as a resource-level middleware:
         middleware_classes = (CORSMiddleware,)
 
         def read(self, request):
-            ...
+            return 'this is a demo'
 ```
+
+[1]: http://restart.readthedocs.org/en/latest/configuration.html#customization
