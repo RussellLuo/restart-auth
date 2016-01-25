@@ -24,6 +24,9 @@ class CORSMiddleware(object):
         allow_credentials = allow_credentials or self.cors_allow_credentials
         allow_methods = allow_methods or self.cors_allow_methods
         allow_headers = allow_headers or self.cors_allow_headers
+        # If the `Access-Control-Allow-Headers` header is specified as
+        # an empty tuple (i.e. `()`), then allow the headers specified in
+        # the `Access-Control-Request-Headers` header (if exists)
         if not allow_headers and request_headers is not None:
             allow_headers = request_headers.split(', ')
         max_age = max_age or self.cors_max_age
@@ -49,9 +52,10 @@ class CORSMiddleware(object):
         """Make reasonable CORS response headers for actual requests.
         """
         allow_origin = allow_origin or self.cors_allow_origin
-        # If the Access-Control-Allow-Origin header is specified as
-        # a wildcard, only allow the origin of the current request
-        if allow_origin == '*':
+        # If the `Access-Control-Allow-Origin` header is specified as
+        # a wildcard (i.e. `*`), then only allow the origin of the
+        # current request (if exists)
+        if allow_origin == '*' and request_origin is not None:
             allow_origin = request_origin
         allow_credentials = allow_credentials or self.cors_allow_credentials
 
@@ -88,7 +92,7 @@ class CORSMiddleware(object):
         :param response: the response object.
         """
         if not self.is_preflight_request(request):
-            request_origin = request.headers['Origin']
+            request_origin = request.headers.get('Origin')
             headers = self.make_actual_headers(request_origin)
             response.headers.update(headers)
         return response
