@@ -8,6 +8,7 @@ Here you can see the full list of changes between each RESTArt-CrossDomain relea
 (release date to be announced)
 
 - Handle requests without the `Origin` header correctly
+- Add tests
 
 
 ## Version 0.1.0
