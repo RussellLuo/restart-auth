@@ -3,12 +3,13 @@
 Here you can see the full list of changes between each RESTArt-CrossDomain release.
 
 
-## Version 0.1.1
+## Version 0.1.2
 
-(release date to be announced)
+Released on Jan 29th 2016.
 
 - Handle requests without the `Origin` header correctly
 - Add tests
+- Update README
 
 
 ## Version 0.1.0
