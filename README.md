@@ -27,19 +27,19 @@ Use the `CORSMiddleware` class:
 which has the default configurations as follows:
 
 ```python
-    # Provides the `Access-Control-Allow-Origin` header
+    # The configuration that determines the `Access-Control-Allow-Origin` header
     cors_allow_origin = '*'  # any domain
 
-    # Provides the `Access-Control-Allow-Credentials` header
+    # The configuration that determines the `Access-Control-Allow-Credentials` header
     cors_allow_credentials = False
 
-    # Provides the `Access-Control-Allow-Methods` header
+    # The configuration that determines the `Access-Control-Allow-Methods` header
     cors_allow_methods = ('GET', 'POST', 'PUT', 'PATCH', 'DELETE')
 
-    # Provides the `Access-Control-Allow-Headers` header
+    # The configuration that determines the `Access-Control-Allow-Headers` header
     cors_allow_headers = ()  # any headers
 
-    # Provides the `Access-Control-Max-Age` header
+    # The configuration that determines the `Access-Control-Max-Age` header
     cors_max_age = 864000  # 10 days
 ```
 
@@ -57,7 +57,7 @@ Or create a new subclass with some customized configurations:
 
 ### 2. Use the middleware class
 
-Set the above middleware class as a global middleware, in the [customized configuration][1] module:
+Set the above middleware class as a [global middleware][1]:
 
 ```python
     MIDDLEWARE_CLASSES = (
@@ -67,7 +67,7 @@ Set the above middleware class as a global middleware, in the [customized config
     )
 ```
 
-Or set it as a resource-level middleware:
+Or set it as a [resource-level middleware][2]:
 
 ```python
     from restart.api import RESTArt
@@ -88,4 +88,6 @@ Or set it as a resource-level middleware:
             return 'this is a demo'
 ```
 
-[1]: http://restart.readthedocs.org/en/latest/configuration.html#customization
+
+[1]: http://restart.readthedocs.org/en/latest/middleware.html#global-middlewares
+[2]: http://restart.readthedocs.org/en/latest/middleware.html#resource-level-middlewares
